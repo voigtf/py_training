@@ -32,14 +32,29 @@ class Basket:
             return sum([book.price for book in self.__books])
 
         first_book = self.__books[0]
+        checked_books = [first_book.title]
         total_price = first_book.price
         discount_value = 0.0
+        multiset = []
 
         for i in range(1, len(self.__books)):
             next_book = self.__books[i]
 
-            if first_book.title != next_book.title:
+            if discount_value == 0.0 and (next_book.title not in checked_books):
+                checked_books.append(next_book.title)
                 discount_value = 0.05
+
+            elif discount_value == 0.05 and (next_book.title not in checked_books):
+                checked_books.append(next_book.title)
+                discount_value = 0.1
+
+            elif discount_value == 0.1 and (next_book.title not in checked_books):
+                checked_books.append(next_book.title)
+                discount_value = 0.2
+
+            elif discount_value == 0.2 and (next_book.title not in checked_books):
+                checked_books.append(next_book.title)
+                discount_value = 0.25
 
             total_price += next_book.price
 
