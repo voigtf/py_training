@@ -46,29 +46,17 @@ class Basket:
                         title_in_sub_basket = False
                         items.append(next_book)
                         break
-                    else:
-                        remaining_books.append(next_book)
+                    #else:
+                    #    remaining_books.append(next_book)
                 elif next_book.title in [book.title for book in items]:
                     title_in_sub_basket = True
 
             if title_in_sub_basket is True:
                 sub_basket.append([next_book])
 
-        if remaining_books != []:
-            for book in remaining_books:
-                already_added = False
-                print('Remain:')
-                print(book.title)
-                for items in sub_basket:
-                    if len(items) < 4 and already_added is False:
-                            if book.title not in [book.title for book in items]:
-                                items.append(book)
-                                already_added = True
-                    if len(items) == 4 and already_added is False:
-                            if book.title not in [book.title for book in items]:
-                                items.append(book)
-                                already_added = True
-
+        for items in sub_basket:
+            print('Books:')
+            print([book.title for book in items])
 
         # discount and total prize calculation
         for items in sub_basket:
