@@ -28,35 +28,57 @@ class Basket:
         self.__books.append(book)
 
     def count_total_price(self) -> float:
-        if len(self.__books) < 2:
-            return sum([book.price for book in self.__books])
 
+        total_price = 0.0
         first_book = self.__books[0]
-        checked_books = [first_book.title]
-        total_price = first_book.price
-        discount_value = 0.0
-        multiset = []
+        sub_basket = [[first_book]]
+        remaining_books = []
 
+        # group books - calculating discount purpose
         for i in range(1, len(self.__books)):
+
             next_book = self.__books[i]
+            title_in_sub_basket = False
 
-            if discount_value == 0.0 and (next_book.title not in checked_books):
-                checked_books.append(next_book.title)
-                discount_value = 0.05
+            for items in sub_basket:
+                if next_book.title not in [book.title for book in items]:
+                    if len(items) < 4:
+                        title_in_sub_basket = False
+                        items.append(next_book)
+                        break
+                    else:
+                        remaining_books.append(next_book)
+                elif next_book.title in [book.title for book in items]:
+                    title_in_sub_basket = True
 
-            elif discount_value == 0.05 and (next_book.title not in checked_books):
-                checked_books.append(next_book.title)
-                discount_value = 0.1
+            if title_in_sub_basket is True:
+                sub_basket.append([next_book])
 
-            elif discount_value == 0.1 and (next_book.title not in checked_books):
-                checked_books.append(next_book.title)
-                discount_value = 0.2
+        if remaining_books != []:
+            for book in remaining_books:
+                already_added = False
+                print('Remain:')
+                print(book.title)
+                for items in sub_basket:
+                    if len(items) < 4 and already_added is False:
+                            if book.title not in [book.title for book in items]:
+                                items.append(book)
+                                already_added = True
+                    if len(items) == 4 and already_added is False:
+                            if book.title not in [book.title for book in items]:
+                                items.append(book)
+                                already_added = True
 
-            elif discount_value == 0.2 and (next_book.title not in checked_books):
-                checked_books.append(next_book.title)
-                discount_value = 0.25
 
-            total_price += next_book.price
+        # discount and total prize calculation
+        for items in sub_basket:
+            print('Books:')
+            print([book.title for book in items])
+            discount_values = {1 : 1.00,
+                               2 : 0.95,
+                               3 : 0.90,
+                               4 : 0.80,
+                               5 : 0.75}
+            total_price += sum([book.price for book in items]) * discount_values[len(items)]
 
-        return total_price * (1 - discount_value)
-
+        return total_price
