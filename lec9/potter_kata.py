@@ -38,25 +38,41 @@ class Basket:
         for i in range(1, len(self.__books)):
 
             next_book = self.__books[i]
-            title_in_sub_basket = False
+            title_found_in_sub_basket = False
 
             for items in sub_basket:
                 if next_book.title not in [book.title for book in items]:
                     if len(items) < 4:
-                        title_in_sub_basket = False
+                        title_found_in_sub_basket = False
                         items.append(next_book)
                         break
-                    #else:
-                    #    remaining_books.append(next_book)
+                    else:
+                        title_found_in_sub_basket = False
+                        sub_basket.append([next_book])
+                        break
                 elif next_book.title in [book.title for book in items]:
-                    title_in_sub_basket = True
+                    title_found_in_sub_basket = True
 
-            if title_in_sub_basket is True:
+            if title_found_in_sub_basket is True:
                 sub_basket.append([next_book])
 
-        for items in sub_basket:
-            print('Books:')
-            print([book.title for book in items])
+        '''for items in sub_basket:
+
+            while remaining_books != []:
+
+                book = remaining_books.pop()
+                print('Remain')
+                print(book.title)
+                print("List - pop")
+                print(remaining_books)
+
+                if len(items) < 4 and book.title not in [book.title for book in items]:
+                    items.append(book)
+                    print(4)
+                elif len(items) == 4 and book.title not in [book.title for book in items]:
+                    items.append(book)
+                    print(44)'''
+
 
         # discount and total prize calculation
         for items in sub_basket:
