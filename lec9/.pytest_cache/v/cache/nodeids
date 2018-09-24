@@ -1,0 +1,16 @@
+[
+  "test_potter_kata.py::test_book_canCreateBook_noSideEffect_ut",
+  "test_potter_kata.py::test_canCreateBasket_ut",
+  "test_potter_kata.py::test_basket_addBook_addOneBook_OneBookInBasket_ut",
+  "test_potter_kata.py::test_basket_addBook_addTwoBooks_TwoBooksInBasket_ut",
+  "test_potter_kata.py::test_basket_countTotalPrice_buyTwoSameBooks_noDiscount_ut",
+  "test_potter_kata.py::test_basket_countTotalPrice_buyTwoDiffBooks_fivePercentOfDiscount_ut",
+  "test_potter_kata.py::test_basket_countTotalPrice_buyThreeDiffBooks_tenPercentOfDiscount_ut",
+  "test_potter_kata.py::test_basket_countTotalPrice_buyFourDiffBooks_twentyPercentOfDiscount_ut",
+  "test_potter_kata.py::test_basket_countTotalPrice_buyFiveDiffBooks_twentyFivePercentOfDiscount_ut",
+  "test_potter_kata.py::test_basket_countTotalPrice_buyTwoSameOneDiffBooks_mixedDiscountNonePlusFive_ut",
+  "test_potter_kata.py::test_basket_countTotalPrice_buyPairOfTwoDiffBooks_fivePercentDiscount_ut",
+  "test_potter_kata.py::test_basket_countTotalPrice_buySixDiffBooks_mixedDiscountTwentyPlusFive_ut",
+  "test_potter_kata.py::test_basket_countTotalPrice_buySixDiffBooks_mixedDiscountNonePlusTwentyFive_ut",
+  "test_potter_kata.py::test_basket_countTotalPrice_buyPairsOfThreeFirstBooksAndFourthAndFifthBooks_twentyPercentDiscount_ut"
+]

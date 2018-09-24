@@ -1,0 +1,5 @@
+{
+  "test_potter_kata.py::test_basket_countTotalPrice_buyFiveDiffBooks_twentyFivePercentOfDiscount_ut": true,
+  "test_potter_kata.py::test_basket_countTotalPrice_buyPairsOfThreeFirstBooksAndFourthAndFifthBooks_twentyPercentDiscount_ut": true,
+  "test_potter_kata.py::test_basket_countTotalPrice_buySixDiffBooks_mixedDiscountNonePlusTwentyFive_ut": true
+}
