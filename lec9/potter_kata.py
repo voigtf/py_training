@@ -18,8 +18,18 @@ class Book:
 
 class Basket:
 
-    def __init__(self):
+    def __init__(self, special_case=False):
         self.__books = []   # type: List[Book]
+        self.discount_values = {1: 1.00,
+                                2: 0.95,
+                                3: 0.90,
+                                4: 0.80,
+                                5: 0.75}
+        self.special_case = special_case
+        if self.special_case:
+            self.sub_basket_limit = 4
+        else:
+            self.sub_basket_limit = 5
 
     def __len__(self) -> int:
         return len(self.__books)
@@ -27,62 +37,40 @@ class Basket:
     def add_book(self, book: Book):
         self.__books.append(book)
 
+    def set_discount_values(self, discount_values: dict):
+        self.discount_values = discount_values
+
     def count_total_price(self) -> float:
 
         total_price = 0.0
-        first_book = self.__books[0]
-        sub_basket = [[first_book]]
-        remaining_books = []
+        sub_basket = []
+        title_found_in_sub_basket = False
 
-        # group books - calculating discount purpose
-        for i in range(1, len(self.__books)):
+        for book in self.__books:
 
-            next_book = self.__books[i]
-            title_found_in_sub_basket = False
+            if sub_basket == []:
+                sub_basket.append([book])
 
-            for items in sub_basket:
-                if next_book.title not in [book.title for book in items]:
-                    if len(items) < 4:
+            elif len(sub_basket) > 0:
+
+                for items in sub_basket:
+
+                    if book.title in [books.title for books in items] and len(items):
+                        title_found_in_sub_basket = True
+
+                    elif book.title not in [books.title for books in items] and len(items) < self.sub_basket_limit:
                         title_found_in_sub_basket = False
-                        items.append(next_book)
+                        items.append(book)
                         break
-                    else:
-                        title_found_in_sub_basket = False
-                        sub_basket.append([next_book])
-                        break
-                elif next_book.title in [book.title for book in items]:
-                    title_found_in_sub_basket = True
 
-            if title_found_in_sub_basket is True:
-                sub_basket.append([next_book])
+                    elif len(items) == self.sub_basket_limit:
+                        title_found_in_sub_basket = True
 
-        '''for items in sub_basket:
+                if title_found_in_sub_basket:
+                    sub_basket.append([book])
 
-            while remaining_books != []:
-
-                book = remaining_books.pop()
-                print('Remain')
-                print(book.title)
-                print("List - pop")
-                print(remaining_books)
-
-                if len(items) < 4 and book.title not in [book.title for book in items]:
-                    items.append(book)
-                    print(4)
-                elif len(items) == 4 and book.title not in [book.title for book in items]:
-                    items.append(book)
-                    print(44)'''
-
-
-        # discount and total prize calculation
         for items in sub_basket:
-            print('Books:')
             print([book.title for book in items])
-            discount_values = {1 : 1.00,
-                               2 : 0.95,
-                               3 : 0.90,
-                               4 : 0.80,
-                               5 : 0.75}
-            total_price += sum([book.price for book in items]) * discount_values[len(items)]
+            total_price += sum([book.price for book in items]) * self.discount_values[len(items)]
 
         return total_price
